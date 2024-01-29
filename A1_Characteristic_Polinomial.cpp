@@ -7,59 +7,22 @@
 
 #define DEBUG 3
 
+std::vector<int> multiply_poly(const std::vector<int>& Poly_A, const std::vector<int>& Poly_B) {
+    std::vector<int>* product {new std::vector<int>((Poly_A.size() + Poly_B.size() - 1), 0)};
 
-std::string operator *(int num, std::string var) {
-    return var + std::to_string(num);
-}
-std::string operator *(std::string var, int num) {
-    return var + std::to_string(num);
-}
+    for (auto i {0}; i < Poly_A.size(); i++) {
+        for (auto j {0}; j < Poly_B.size(); j++) {
+            (*product)[i + j] += Poly_A[i] * Poly_B[j];
+        }
+    }
 
-std::string operator * (std::string var_1, std::string var_2) {
+    std::cout << "[";
+    for (const auto& num : *product) {
+        std::cout << " " << num; 
+    }
+    std::cout << "]" << std::endl;;
 
-    std::vector<std::string>* terms_1 {nullptr};
-    std::vector<std::string>* terms_2 {nullptr};
-    std::vector<std::string>* big_terms {nullptr};
-    std::vector<std::string>* smol_terms {nullptr};
-
-
-    // // break into terms using + and - as deliminting characters
-    // if (var_1.find("+") != std::string::npos || var_1.find("-") != std::string::npos) {
-    //     std::vector<std::string> terms_1 = splitString(var_1);
-    // } else {
-    //     std::vector<std::string> terms_1 {var_1};
-    // }
-    // if (var_2.find("+") != std::string::npos || var_2.find("-") != std::string::npos) {
-    //     std::vector<std::string> terms_2 = splitString(var_2);
-    // } else {
-    //     std::vector<std::string> terms_2 {var_2};
-    // }
-
-    // // Choose the polinomial with the most terms
-    // if (terms_1->size() > terms_2->size()) {
-    //     big_terms = &*terms_1;
-    //     smol_terms = &*terms_2;
-    // } else {
-    //     big_terms = &*terms_2;
-    //     smol_terms = &*terms_1;
-    // }
-
-
-    // // Extract numbers and characters for both termsthat are being multiplied
-    // std::pair<std::vector<int>, std::vector<std::string>> num_char_big_terms {extractNumbersAndChars((*big_terms)[0])};
-    // std::pair<std::vector<int>, std::vector<std::string>> num_char_smol_terms {extractNumbersAndChars((*smol_terms)[0])};
-
-
-    // std::cout << "Numbers: ";
-
-    // for (auto i {0}; i < num_char_big_terms.first.size(); i++) {
-    //     std::cout << num_char_big_terms.first[i] << " ";
-    // }
-    // std::cout << std::endl;
-
-
-
-
+    return *product;
 }
 
 
@@ -205,14 +168,14 @@ int main() {
         std::cout << "\n\n\n";
 
         std::cout << (_4_by_4_2 + _4_by_4_2 - _4_by_4_1) << std::endl;
-        std::cout << 2 * std::string("x") * 2<< std::endl;
+        // std::cout << 2 * std::string("x") * 2<< std::endl;
 
     }
 
     if (DEBUG == 3) {
-        std::string eq_1 {"2x"};
-        std::string eq_2 {"3x"};
+        std::vector<int> p_1 {1,2,3};
+        std::vector<int> p_2 {4,5,6};
 
-        // std::cout << eq_1 * eq_2 << std::endl;
+        multiply_poly(p_1,p_2);
     }
 }
